@@ -1,3 +1,3 @@
 # pygame-alarm
 
-*Does Not Work Yet*
+An alarm clock made by beepboopblap
