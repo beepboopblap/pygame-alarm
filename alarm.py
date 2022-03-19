@@ -4,8 +4,7 @@ from pygame import *
 import sys
 import pickle
 import os
-
-from webob import hour, month
+from pygame import mixer
 os.system("clear")
 
 SCREEN_WIDTH = 600
@@ -43,22 +42,31 @@ view_reminders_label = Inconsolata50.render("View Schedule",1 , white)
 exit_label = Inconsolata50.render("Exit", 1, red)
 chooser = Inconsolata50.render(">", 1, white)
 set_reminder_instruct = Inconsolata50.render("Set Alarm in Terminal", 1, white)
+press_esc = Inconsolata50.render("Press 'ESC' to Escape", 1, red)
+reminders_title = Inconsolata90.render("Reminders", 1, yellow)
+
+# sfx and music 
+pygame.mixer.music.load("alarm1.ogg")
 
 # variables
 running = True
 menu = True
 set_reminder = False
 view_reminders = False
+alarm_detect = True
 point = 0
 date_alarm1 = ()
 time_alarm1 = ()
-alarm_names = []
+alarm_names = ["MyAlarm"]
 month_input = ""
 day_input = ""
 hour_input = ""
 minutes_input = ""
 seconds_input = ""
-    
+
+
+# load data
+alarm_names = pickle.load(open("alarms.txt", "rb"))
 
 while running == True:
 
@@ -71,12 +79,12 @@ while running == True:
     current_hour = now.strftime("%H")
     current_minute = now.strftime("%M")
 
-    if month_input == current_month:
-        if day_input == current_day:
-            if hour_input == current_hour:
-                if minutes_input == current_minute:
-                    running = False
-                    quit = True
+    if alarm_detect == True:
+        if month_input == int(current_month) and day_input == int(current_day) and hour_input == int(current_hour) and minutes_input == int(current_minute):
+            pygame.mixer.music.play(-1)
+            
+
+
 
 
     
@@ -104,7 +112,7 @@ while running == True:
                 pickle.dump(alarm_names, open("alarms.txt", "wb"))
                 pygame.quit()
 
-        user_input_name = input("Create Alarm Name (input '' to escaoe): ")
+        user_input_name = input("Create Alarm Name (input '' to escape): ")
         if user_input_name in alarm_names:
             print("Alarm name already exists!")
             continue
@@ -123,11 +131,7 @@ while running == True:
             set_reminder = False
             menu = True
 
-            if month_input == current_month:
-                if day_input == current_day:
-                    if hour_input == current_hour:
-                        if minutes_input == current_minute:
-                            print("WAKE UP")
+
 
     elif menu == True:
 
@@ -153,7 +157,7 @@ while running == True:
                         set_reminder = True
                         menu = False
                     elif point == 1:
-                        view_reminder = True
+                        view_reminders = True
                         menu = False
                     elif point == 2:
                         pickle.dump(alarm_names, open("alarms.txt", "wb"))
@@ -176,11 +180,33 @@ while running == True:
             window.blit(chooser, (133, 500))
         elif point == 2:
             window.blit(chooser, (133, 600))
+
+    elif view_reminders == True:
         
-            
+        # event checker
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pickle.dump(alarm_names, open("alarms.txt", "wb"))
+                pygame.quit()
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    create_task = view_reminders
+                    menu = True
+
+        # graphics 
+        window.fill(black)
+        window.blit(reminders_title, (95,70))
+        window.blit(press_esc, (35, 700))
+
+        x = 150
+        y = 330
+
+        for alarm in alarm_names:
+            alarm = Inconsolata50.render(alarm, 1, white)
+            window.blit(alarm, (x, y))
+            y += 75
+
 
 
     pygame.display.update()
     fps.tick(25)
-
-    
