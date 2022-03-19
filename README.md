@@ -21,7 +21,7 @@ An alarm clock made by beepboopblap
 **The App**
 
 - When typing in the set alarm time
-- Input the set times as **int** and not as a string
+- Input the set times as an **int** and not as a string
 
 Examples
 
