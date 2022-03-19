@@ -25,9 +25,11 @@ An alarm clock made by beepboopblap
 Examples
 
 **Set Month?**: 03 (March)✅
+
 **Set Day?**: 24 ✅
 
 **Set Hour?**: 7pm ❌ 
+
 **Set Day?**: Monday ❌ 
 
 *Please enter set hour in a 24 hour format**
