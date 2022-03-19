@@ -2,9 +2,10 @@
 
 An alarm clock made by beepboopblap
 
-**Bugs**
+**Bugs and Putbacks**
 
 - Can't create multiple alarms (working on it).
+- Alarm will only sound if the pygame window is open
 
 # Preview
 ![the menu of the alarm](preview.png)
