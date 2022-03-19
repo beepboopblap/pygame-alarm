@@ -32,4 +32,4 @@ Examples
 
 **Set Day?**: Monday ❌ 
 
-*Please enter set hour in a 24 hour format**
+* *Please enter set hour in a 24 hour format*
