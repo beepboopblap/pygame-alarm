@@ -6,6 +6,7 @@ An alarm clock made by beepboopblap
 
 - Can't create multiple alarms (working on it).
 - Alarm will only sound if the pygame window is open
+- No snooze option
 
 # Preview
 ![the menu of the alarm](preview.png)
